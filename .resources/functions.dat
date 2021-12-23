@@ -1,0 +1,83 @@
+#!/bin/bash
+
+print_help(){
+	clear
+	printf "***** Welcome to the helping page of this script and merry Xmas! *****\n\nOptions:\n  -h  show this helping page\n\n  -l  lustful   [required]\n  -o  oral      [required]\n  -v  vaginal   [required]\n  -e  ecstatic  [required]\n\nHave a lot of fun!\n\n"
+	exit 0
+}
+
+check_vlc(){
+	if ! command -v cvlc &> /dev/null
+	then
+		printf "VLC Media Player is missing. Please install it before you proceed.\nExiting...\n"
+		exit 1
+	fi
+}
+
+start_vlc(){
+	setsid cvlc --loop .resources/song.mp3 &> /dev/null & disown
+}
+
+check_options(){
+	if [ $var_l -eq 0 ]
+	then
+		printf "This script must run with the lustful option enabled!\n"
+	fi
+	if [ $var_o -eq 0 ]
+	then
+		printf "This script must run with the oral option enabled!\n"
+	fi
+	if [ $var_v -eq 0 ]
+	then
+		printf "This script must run with the vaginal option enabled!\n"
+	fi
+	if [ $var_e -eq 0 ]
+	then
+		printf "This script must run with the ecstatic option enabled!\n"
+	fi
+	var_opts=$((var_l+var_o+var_v+var_e))
+	if [ $var_opts -lt 4 ]
+	then
+		printf "Running with wrong option set! Please use the -h option for further assistance.\nExiting...\n"
+		exit 0
+	fi
+}
+
+print_tree(){
+	clear
+	cat .resources/tree.dat
+}
+
+print_santa(){
+	clear
+	cat .resources/santa.dat
+}
+
+print_heart(){
+	clear
+	cat .resources/heart.dat
+}
+
+main(){
+clear
+printf "Hello my sweety! I wish you merry Xmas!"
+sleep 4
+printf "\n\nTo get you in the right mood, I put a little christmas song in here."
+sleep 4
+printf "\n\nDon't try to get it away, you can't! :P"
+sleep 4
+printf "\n\nI love you! Hope I seen you soon! <3"
+sleep 4
+printf "\n\nUntil then, here are some pictures for your xmas mood!"
+sleep 8
+
+while true
+do 
+	print_tree
+	sleep 10
+	print_santa
+	sleep 10
+	print_heart
+	sleep 10
+done
+}

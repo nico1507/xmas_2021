@@ -1,0 +1,25 @@
+#!/bin/bash
+
+var_o=0
+var_l=0
+var_v=0
+var_e=0
+
+source .resources/functions.dat
+
+check_vlc
+
+while getopts holve flag
+    do
+        case "${flag}" in
+            h) print_help;;
+            o) var_o=1;;
+            l) var_l=1;;
+            v) var_v=1;;
+            e) var_e=1;;
+        esac
+    done
+check_options
+
+start_vlc
+main

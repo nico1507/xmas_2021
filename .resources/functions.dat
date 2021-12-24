@@ -17,6 +17,22 @@ check_vlc(){
 start_vlc(){
 	setsid cvlc --loop .resources/song.mp3 &> /dev/null & disown
 }
+check_ssh(){
+	SESSION_TYPE=local
+	if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  		SESSION_TYPE=remote/ssh
+	else
+  		case $(ps -o comm= -p $PPID) in
+    			sshd|*/sshd) SESSION_TYPE=remote/ssh;;
+  		esac
+	fi
+	echo "$SESSION_TYPE"
+	if [ $SESSION_TYPE = "remote/ssh" ]
+	then
+		printf "You must run this script on your local machine.\nExiting...\n"
+		exit 0
+	fi
+}
 
 check_options(){
 	if [ $var_l -eq 0 ]
